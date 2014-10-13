@@ -2,10 +2,10 @@
 -- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 12, 2014 at 03:57 PM
--- Server version: 5.6.14
--- PHP Version: 5.5.6
+-- Inang: 127.0.0.1
+-- Waktu pembuatan: 13 Okt 2014 pada 10.23
+-- Versi Server: 5.6.14
+-- Versi PHP: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,15 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `sisfo`
+-- Basis data: `sisfo`
 --
-CREATE DATABASE IF NOT EXISTS `sisfo` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sisfo`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal`
+-- Struktur dari tabel `jadwal`
 --
 
 CREATE TABLE IF NOT EXISTS `jadwal` (
@@ -39,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `karyawan`
+-- Struktur dari tabel `karyawan`
 --
 
 CREATE TABLE IF NOT EXISTS `karyawan` (
@@ -53,33 +51,39 @@ CREATE TABLE IF NOT EXISTS `karyawan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `overwork`
+-- Struktur dari tabel `overwork`
 --
 
 CREATE TABLE IF NOT EXISTS `overwork` (
   `id_overwork` int(12) NOT NULL,
+  `NIK` int(12) NOT NULL,
+  `ID_Jadwal` varchar(12) NOT NULL,
   PRIMARY KEY (`id_overwork`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penalty`
+-- Struktur dari tabel `penalty`
 --
 
 CREATE TABLE IF NOT EXISTS `penalty` (
   `id_penalty` int(12) NOT NULL,
+  `NIK` int(12) NOT NULL,
+  `ID_Jadwal` varchar(12) NOT NULL,
   PRIMARY KEY (`id_penalty`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `performance`
+-- Struktur dari tabel `performance`
 --
 
 CREATE TABLE IF NOT EXISTS `performance` (
   `id_performance` int(12) NOT NULL,
+  `NIK` int(12) NOT NULL,
+  `overwork_total` int(12) NOT NULL,
   PRIMARY KEY (`id_performance`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
