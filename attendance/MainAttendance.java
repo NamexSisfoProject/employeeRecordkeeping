@@ -3,14 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package attendance;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Yona
  */
 public class MainAttendance extends javax.swing.JFrame {
+
+    public class Database {
+
+        Statement stt = null;
+        Connection con = null;
+        ResultSet rs = null;
+
+        public Database() throws ClassNotFoundException, SQLException {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/sisfo", "root", "");
+            stt = con.createStatement();
+        }
+
+        public ResultSet getData(String s) throws SQLException {
+            rs = stt.executeQuery(s);
+            return rs;
+        }
+
+        public void query(String s) throws SQLException {
+            stt.executeUpdate(s);
+        }
+    }
+
+    public void setJam(int hh, int mm, int ss) {
+        jam.setText(Integer.toString(hh));
+        menit.setText(Integer.toString(mm));
+        detik.setText(Integer.toString(ss));
+    }
 
     /**
      * Creates new form MainAttendance
@@ -30,12 +67,12 @@ public class MainAttendance extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        nik = new javax.swing.JTextField();
+        jam = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        menit = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        detik = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,20 +86,20 @@ public class MainAttendance extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel2.setText("00");
+        jam.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jam.setText("0");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel3.setText(":");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel4.setText("00");
+        menit.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        menit.setText("0");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel5.setText(":");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel6.setText("00");
+        detik.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        detik.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,22 +112,22 @@ public class MainAttendance extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel2)
+                        .addGap(104, 104, 104)
+                        .addComponent(nik, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jam)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
+                        .addComponent(menit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(jButton1)))
+                        .addComponent(detik)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -101,12 +138,12 @@ public class MainAttendance extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
+                    .addComponent(jam)
+                    .addComponent(menit)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(detik))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -117,6 +154,45 @@ public class MainAttendance extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (nik != null) {
+            try {
+                Database db = new Database();
+                ResultSet rs;
+                rs = db.getData("Select NIK from karyawan where NIK = '" + nik.getText() + "' ;");
+                if (rs.next()) {
+                    Date date = new Date();
+                    int year = date.getYear() + 1900;
+                    int mo = date.getMonth() + 1;
+                    int day = date.getDate();
+                    String jame = jam.getText() + ":" + menit.getText() + ":" + detik.getText();
+                    String tanggal = Integer.toString(year) + "-" + Integer.toString(mo) + "-" + Integer.toString(day);
+                    rs = db.getData("Select NIK from kehadiran where NIK = '" + nik.getText() + "'  and tanggal = '" + tanggal + "' ;");
+                    if ((rs.next()) && (Integer.parseInt(jam.getText()) > 17)) {
+                        db.query("Update `kehadiran` set `id_overwork`= 'O001' where NIK = '" + nik.getText() + "' and tanggal = '" + tanggal + "' ;");
+                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat /n hati hati dalam perjalanan pulang ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                    rs = db.getData("Select NIK from kehadiran where NIK = '" + nik.getText() + "'  and tanggal = '" + tanggal + "' ;");
+                    if ((!rs.next()) && (Integer.parseInt(jam.getText())) >= 8) {
+                        db.query("INSERT INTO `kehadiran`(`NIK`, `id_penalty`, `tanggal`, `jam`) VALUES ('" + nik.getText() + "','P001','" + tanggal + "','" + jame + "');");
+                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat ! /n Selamat bekerja ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                    } else{
+                    rs = db.getData("Select NIK from kehadiran where NIK = '" + nik.getText() + "'  and tanggal = '" + tanggal + "' ;");
+                    if ((!rs.next()) && (Integer.parseInt(jam.getText())) < 8) {
+                        db.query("INSERT INTO `kehadiran`(`NIK`, `tanggal`, `jam`) VALUES ('" + nik.getText() + "','" + tanggal + "','" + jame + "');");
+                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat /n Selamat bekerja ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Anda sudah tercatat dalam kehadiran dan sedang tidak dalam jam pulang dilahkan lanjutkan pekerjaan anda ", "Gagal", JOptionPane.ERROR_MESSAGE);
+                    }}}
+                } else {
+                    JOptionPane.showMessageDialog(null, "NIK Tidak Tersedia", "GAGAL", JOptionPane.ERROR_MESSAGE);
+                }
+                nik.setText(null);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, " ERROR KONEKSI", "Gagal", JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, " ERROR KONEKSI", "Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -150,18 +226,19 @@ public class MainAttendance extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainAttendance().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel detik;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jam;
+    private javax.swing.JLabel menit;
+    private javax.swing.JTextField nik;
     // End of variables declaration//GEN-END:variables
 }
