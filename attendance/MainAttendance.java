@@ -169,17 +169,17 @@ public class MainAttendance extends javax.swing.JFrame {
                     rs = db.getData("Select NIK from kehadiran where NIK = '" + nik.getText() + "'  and tanggal = '" + tanggal + "' ;");
                     if ((rs.next()) && (Integer.parseInt(jam.getText()) > 17)) {
                         db.query("Update `kehadiran` set `id_overwork`= 'O001' where NIK = '" + nik.getText() + "' and tanggal = '" + tanggal + "' ;");
-                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat /n hati hati dalam perjalanan pulang ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat ! hati hati dalam perjalanan pulang ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                     }else{
                     rs = db.getData("Select NIK from kehadiran where NIK = '" + nik.getText() + "'  and tanggal = '" + tanggal + "' ;");
                     if ((!rs.next()) && (Integer.parseInt(jam.getText())) >= 8) {
                         db.query("INSERT INTO `kehadiran`(`NIK`, `id_penalty`, `tanggal`, `jam`) VALUES ('" + nik.getText() + "','P001','" + tanggal + "','" + jame + "');");
-                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat ! /n Selamat bekerja ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat ! Selamat bekerja ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                     } else{
                     rs = db.getData("Select NIK from kehadiran where NIK = '" + nik.getText() + "'  and tanggal = '" + tanggal + "' ;");
                     if ((!rs.next()) && (Integer.parseInt(jam.getText())) < 8) {
                         db.query("INSERT INTO `kehadiran`(`NIK`, `tanggal`, `jam`) VALUES ('" + nik.getText() + "','" + tanggal + "','" + jame + "');");
-                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat /n Selamat bekerja ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Kehadiran sudah dicatat ! Selamat bekerja ", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "Anda sudah tercatat dalam kehadiran dan sedang tidak dalam jam pulang dilahkan lanjutkan pekerjaan anda ", "Gagal", JOptionPane.ERROR_MESSAGE);
                     }}}
