@@ -1,0 +1,10 @@
+============User Manual==============
+
+Untuk Input data pegawai:
+
+1. eksekusi tubesssisfo.jar
+2. masukkan data pegawai yang ingin diinputkan 
+3. klik tambah untuk menambahkan data pegawai
+4. kemudian klik lihat untuk melihat data yang sudah diinputkan
+
+Selamat Mencoba
